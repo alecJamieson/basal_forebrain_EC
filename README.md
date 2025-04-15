@@ -1,4 +1,4 @@
-# Altered basal forebrain regulation of intrinsic brain networks in depressive and anxiety disorders (under review)**
+# Altered basal forebrain regulation of intrinsic brain networks in depressive and anxiety disorders (under review)
 
 The repository contains [group] (Data/BMA_files) and [individual participant effective connectivity data] (Data/GCM_files) and the [scripts used to generate figures] (Figure_scripts) for this paper by [Jamieson and colleagues] (https://www.biorxiv.org/content/10.1101/2024.11.06.622349v2.abstract).
 
