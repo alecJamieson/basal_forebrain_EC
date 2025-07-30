@@ -101,8 +101,8 @@ Pp2 <- c(0.00, 1.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.54, 0.00, 0.00,
          0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)
 
 # Create the two plots
-plot1 <- create_heatmap(Ep1, Pp1, "")
-plot2 <- create_heatmap(Ep2, Pp2, "")
+plot1 <- create_heatmap(Ep1, Pp1, "Average Control Connectivity")
+plot2 <- create_heatmap(Ep2, Pp2, "Clinical Patients > Controls")
 
 # Arrange the plots side by side
 combined_plot <- grid.arrange(plot1, plot2, ncol = 2)
