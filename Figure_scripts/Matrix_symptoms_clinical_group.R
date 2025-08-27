@@ -30,26 +30,26 @@ create_heatmap <- function(Ep, Pp, title) {
                          limits = c(min(df$value, na.rm = TRUE), max(df$value, na.rm = TRUE)),
                          labels = scales::number_format(accuracy = 0.01)) +
     geom_text(aes(label = ifelse(Pp > 0.99, sprintf("%.2f", value), "")),
-              color = "black", size = 3) +
+              color = "black", size = 2.5) +
     coord_fixed() +
     theme_minimal() +
     labs(title = title,
          x = "From",
          y = "To",
          fill = "Value") +
-    theme(panel.grid = element_blank(),
-          axis.text.x = element_text(angle = 45, hjust = 0, size = 11),
-          axis.text.y = element_text(angle = 45, hjust = 1, size = 11),
-          axis.title.x = element_text(margin = margin(b = 10), size = 12),
-          axis.title.y = element_text(margin = margin(r = 10), size = 12),
-          axis.text.x.top = element_text(angle = 45, hjust = 0, size = 11),
+    theme(panel.grid = element_blank(), plot.title = element_text(size = 10),
+          axis.text.x = element_text(angle = 45, hjust = 0, size = 8),
+          axis.text.y = element_text(angle = 45, hjust = 1, size = 8),
+          axis.title.x = element_text(margin = margin(b = 10), size = 10),
+          axis.title.y = element_text(margin = margin(r = 10), size = 10),
+          axis.text.x.top = element_text(angle = 45, hjust = 0, size = 8),
           axis.ticks.x.top = element_blank(),
           axis.ticks.x.bottom = element_blank(),
           axis.text.x.bottom = element_blank(),       
           legend.key.size = unit(1.2, "cm"),
           legend.key.width = unit(0.9, "cm"),
-          legend.text = element_text(size = 11),
-          legend.title = element_text(size = 12),
+          legend.text = element_text(size = 9),
+          legend.title = element_text(size = 10),
           legend.margin = margin(t = 0, r = 0, b = 0, l = 0, unit = "pt")) +
     scale_x_discrete(position = "top") +
     guides(fill = guide_colorbar(barwidth = 1, barheight = 7))
@@ -123,9 +123,9 @@ Pp3 <- c(0.00, 0.00, 0.00, 1.00, 1.00, 0.00, 1.00, 0.00, 1.00, 1.00,
          0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00, 0.00)
 
 # Create the three plots
-plot1 <- create_heatmap(Ep1, Pp1, "")
-plot2 <- create_heatmap(Ep2, Pp2, "")
-plot3 <- create_heatmap(Ep3, Pp3, "")
+plot1 <- create_heatmap(Ep1, Pp1, "Average Clinical Participant Connectivity")
+plot2 <- create_heatmap(Ep2, Pp2, "Depressive Symptoms")
+plot3 <- create_heatmap(Ep3, Pp3, "Anxiety Symptoms")
 
 # Arrange the plots side by side
 combined_plot <- grid.arrange(plot1, plot2, plot3, ncol = 3)

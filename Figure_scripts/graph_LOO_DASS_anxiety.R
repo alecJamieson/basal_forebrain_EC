@@ -1,4 +1,4 @@
-#Script to generate figure 4, panel e
+# Script to generate figure 4, panel e
 # Load required libraries
 library(ggplot2)
 library(ggthemes)
@@ -11,7 +11,8 @@ file_path1 <- "/Users/ajjami/Documents/NAASA_Rest/DASS_Anx.csv"
 data1 <- read.csv(file_path1)
 
 # Calculate correlation
-cor_test <- cor.test(data1$Observed_DASS, data1$Predicted_DASS, alternative = "greater", method = "pearson")
+cor_test <- cor.test(data1$Observed_DASS, data1$Predicted_DASS,
+                     alternative = "greater", method = "pearson")
 r_val <- sprintf("%.2f", cor_test$estimate)
 p_val <- sprintf("%.5f", cor_test$p.value)
 df_val <- cor_test$parameter
@@ -26,7 +27,7 @@ plot1 <- ggplot(data1, aes(x = Observed_DASS, y = Predicted_DASS)) +
     y = "Predicted DASS Anxiety Scores"
   ) +
   coord_cartesian(ylim = c(-8, 6)) +
-  theme_minimal(base_size = 14, base_family = "Arial") +
+  theme_minimal(base_size = 14) +
   theme(
     plot.subtitle = element_text(size = 14, hjust = 0.5),
     axis.title = element_text(size = 14),
@@ -44,7 +45,8 @@ data1$upper_ci <- data1$Predicted_DASS + data1$Predicted_variance
 # Create the left plot with CI
 plot2 <- ggplot(data1, aes(x = ID, y = Predicted_DASS)) +
   geom_line(color = "black") +
-  geom_ribbon(aes(ymin = lower_ci, ymax = upper_ci), fill = "#0073C2FF", alpha = 0.2) +
+  geom_ribbon(aes(ymin = lower_ci, ymax = upper_ci),
+              fill = "#0073C2FF", alpha = 0.2) +
   labs(
     subtitle = "Anxiety Symptoms Out of Sample Estimate",
     x = "Participants",
@@ -52,11 +54,11 @@ plot2 <- ggplot(data1, aes(x = ID, y = Predicted_DASS)) +
   ) +
   coord_cartesian(ylim = c(-8, 6)) +
   scale_x_continuous(breaks = seq(0, 140, by = 10)) +
-  theme_minimal(base_size = 12) +
+  theme_minimal(base_size = 14) +
   theme(
     plot.subtitle = element_text(size = 14, hjust = 0.5),
     axis.title = element_text(size = 14),
-    axis.text = element_text(size = 14, color = "black"),
+    axis.text = element_text(size = 12, color = "black"),
     panel.grid.major = element_line(color = "grey"),
     panel.grid.minor = element_line(color = "lightgrey"),
     panel.background = element_rect(fill = "white", color = NA),
@@ -64,4 +66,13 @@ plot2 <- ggplot(data1, aes(x = ID, y = Predicted_DASS)) +
   )
 
 # Arrange plots
-grid.arrange(plot2, plot1, ncol = 2)
+combined_plot <- grid.arrange(plot2, plot1, ncol = 2)
+
+# Save to PDF (300 dpi, embedded fonts, journal quality)
+ggsave(
+  filename = "Figure_4e.pdf",
+  plot = combined_plot,
+  width = 12, height = 6,  # inches
+  dpi = 300,
+  device = cairo_pdf
+)

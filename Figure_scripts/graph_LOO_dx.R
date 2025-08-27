@@ -25,7 +25,7 @@ plot1 <- ggplot(data1, aes(x = Observed_dx, y = Predicted_dx)) +
     y = "Predicted Group"
   ) +
   coord_cartesian(ylim = c(-5, 5)) +
-  theme_minimal(base_size = 14, base_family = "Arial") +
+  theme_minimal(base_size = 14) +
   theme(
     plot.subtitle = element_text(size = 14, hjust = 0.5),
     axis.title = element_text(size = 14),
@@ -64,3 +64,12 @@ plot2 <- ggplot(data1, aes(x = ID, y = Predicted_dx)) +
 
 # Arrange plots
 grid.arrange(plot2, plot1, ncol = 2)
+
+# Save to PDF (300 dpi, embedded fonts, journal quality)
+ggsave(
+  filename = "Figure_3.pdf",
+  plot = combined_plot,
+  width = 12, height = 6,  # inches
+  dpi = 300,
+  device = cairo_pdf
+)

@@ -1,17 +1,18 @@
-#Script to generate figure 4, panel d
+# Script to generate figure 4, panel d
 # Load required libraries
 library(ggplot2)
 library(ggthemes)
 library(gridExtra)
 
 # Define file paths (modify if needed)
-file_path1 <- "/Users/ajjami/Documents/NAASA_Rest/DASS_dep.csv"
+file_path1 <- "/Users/ajjami/Documents/NAASA_Rest/DASS_Dep.csv"
 
 # Load the dataset
 data1 <- read.csv(file_path1)
 
 # Calculate correlation
-cor_test <- cor.test(data1$Observed_DASS, data1$Predicted_DASS, alternative = "greater", method = "pearson")
+cor_test <- cor.test(data1$Observed_DASS, data1$Predicted_DASS,
+                     alternative = "greater", method = "pearson")
 r_val <- sprintf("%.2f", cor_test$estimate)
 p_val <- sprintf("%.5f", cor_test$p.value)
 df_val <- cor_test$parameter
@@ -25,8 +26,8 @@ plot1 <- ggplot(data1, aes(x = Observed_DASS, y = Predicted_DASS)) +
     x = "Observed DASS Depression Scores",
     y = "Predicted DASS Depression Scores"
   ) +
-  coord_cartesian(ylim = c(-6, 8)) +
-  theme_minimal(base_size = 14, base_family = "Arial") +
+  coord_cartesian(ylim = c(-8, 6)) +
+  theme_minimal(base_size = 14) +
   theme(
     plot.subtitle = element_text(size = 14, hjust = 0.5),
     axis.title = element_text(size = 14),
@@ -37,22 +38,23 @@ plot1 <- ggplot(data1, aes(x = Observed_DASS, y = Predicted_DASS)) +
     plot.background = element_rect(fill = "white", color = NA)
   )
 
-# Calculate the confidence intervals for left plot
+# Calculate the CI for left plot
 data1$lower_ci <- data1$Predicted_DASS - data1$Predicted_variance
 data1$upper_ci <- data1$Predicted_DASS + data1$Predicted_variance
 
-# Create the left plot with confidence intervals
+# Create the left plot with CI
 plot2 <- ggplot(data1, aes(x = ID, y = Predicted_DASS)) +
   geom_line(color = "black") +
-  geom_ribbon(aes(ymin = lower_ci, ymax = upper_ci), fill = "#0073C2FF", alpha = 0.2) +
+  geom_ribbon(aes(ymin = lower_ci, ymax = upper_ci),
+              fill = "#0073C2FF", alpha = 0.2) +
   labs(
-    subtitle = "Depressive Symptoms Out of Sample Estimate",
+    subtitle = "Depression Symptoms Out of Sample Estimate",
     x = "Participants",
     y = "Predicted DASS Depression Scores" 
   ) +
-  coord_cartesian(ylim = c(-6, 8)) +
+  coord_cartesian(ylim = c(-8, 6)) +
   scale_x_continuous(breaks = seq(0, 140, by = 10)) +
-  theme_minimal(base_size = 14, base_family = "Arial") +
+  theme_minimal(base_size = 14) +
   theme(
     plot.subtitle = element_text(size = 14, hjust = 0.5),
     axis.title = element_text(size = 14),
@@ -64,4 +66,13 @@ plot2 <- ggplot(data1, aes(x = ID, y = Predicted_DASS)) +
   )
 
 # Arrange plots
-grid.arrange(plot2, plot1, ncol = 2)
+combined_plot <- grid.arrange(plot2, plot1, ncol = 2)
+
+# Save to PDF (300 dpi, embedded fonts, journal quality)
+ggsave(
+  filename = "Figure_4d.pdf",
+  plot = combined_plot,
+  width = 12, height = 6,  # inches
+  dpi = 300,
+  device = cairo_pdf
+)
