@@ -1,6 +1,6 @@
-# Altered basal forebrain regulation of intrinsic brain networks in depressive and anxiety disorders (under review)
+# Altered basal forebrain regulation of intrinsic brain networks in depressive and anxiety disorders (2025)
 
-The repository contains [group](Data/BMA_files) and [individual participant effective connectivity data](Data/GCM_files) and the [scripts used to generate figures](Figure_scripts) for this paper by [Jamieson and colleagues](https://www.biorxiv.org/content/10.1101/2024.11.06.622349v2.abstract).
+The repository contains [group](Data/BMA_files) and [individual participant effective connectivity data](Data/GCM_files) and the [scripts used to generate figures](Figure_scripts) for this paper by [Jamieson and colleagues](https://www.nature.com/articles/s44220-025-00496-2).
 
 This study investigated altered effective connectivity between basal forebrain subregions and key nodes of the default mode and salience networks in those with depressive and anxiety disorders. Through a combination of ultra-high field neuroimaging and dynamic causal modelling we identified that these changes were largely localised to the nucleus basalis of Meynert. 
 
